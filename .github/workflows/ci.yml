@@ -9,19 +9,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RESULTS_MD_FILE: target/results.md
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: ☕ Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: 17
           distribution: adopt
+          cache: maven
       - name: 🧪 Maven Test
         run: mvn -B test
       - name: 🖍️ Publish Test Report
@@ -30,3 +27,23 @@ jobs:
         with:
           report_paths: >
             **/surefire-reports/TEST-*.xml
+      - name: read report
+        id: read_report
+        if: always()
+        run: >
+          echo "::set-output name=content::$(awk '{printf "%s\\n", $0}' "${RESULTS_MD_FILE}")"
+      - uses: octokit/request-action@v2.x
+        name: ⭐ Publish Puzzle Results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          route: POST /repos/{owner}/{repo}/check-runs
+          owner: ${{ github.repository_owner }}
+          repo: AdventOfCode2021
+          name: "⭐ Puzzle Results"
+          head_sha: ${{ github.sha }}
+          conclusion: success
+          output: |
+            title: "⭐ Puzzle Results"
+            summary: "${{ steps.read_report.outputs.content }}"
