@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -18,7 +19,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -188,10 +188,15 @@ public class PuzzleInput implements Iterable<String> {
         final List<String> inputs = new LinkedList<>();
         final String raw = toString();
         int start = 0, end;
-        while ((end = raw.indexOf(delimiter, start)) != -1) {
-            inputs.add(raw.substring(start, end));
+        //find next occurrence of new delimiter
+        while (start < raw.length() && (end = raw.indexOf(delimiter, start)) != -1) {
+            //add content up to delimiter to buffer if not empty
+            if (end > start) inputs.add(raw.substring(start, end));
+            //continue after delimiter
             start = end + delimiter.length();
         }
+        //no more occurrences of delimiter, add content behind last delimiter to buffer
+        if (start < raw.length()) inputs.add(raw.substring(start));
         return new PuzzleInput(inputs, delimiter);
     }
 
@@ -299,7 +304,7 @@ public class PuzzleInput implements Iterable<String> {
      * @return new Puzzle input split at regex
      */
     public List<PuzzleInput> split(String regex) {
-        return split(Pattern.compile(regex));
+        return split(input -> input.split(regex));
     }
 
     /**
@@ -311,26 +316,22 @@ public class PuzzleInput implements Iterable<String> {
      * @return new Puzzle input split at regex
      */
     public List<PuzzleInput> split(Pattern pattern) {
-        final List<PuzzleInput> out = new ArrayList<>();
-        List<String> buffer = new LinkedList<>();
-        for (String line : getLines()) {
-            final Matcher match = pattern.matcher(line);
-            int start = 0;
-            boolean found = false;
-            while (match.find()) {
-                //found location to split, add line before location to buffer
-                final String before = line.substring(start, match.start());
-                if (!before.isEmpty()) buffer.add(before);
-                start = match.end();
+        return split(pattern::split);
+    }
 
-                //create new puzzle input from buffer & reset buffer
-                out.add(new PuzzleInput(buffer, getDelimiter()));
-                buffer = new LinkedList<>();
-            }
-            //if line contains characters after split (or was not split), add them to buffer
-            if (start != line.length()) buffer.add(line.substring(start));
-        }
-        return out;
+    /**
+     * Utility method for {@link #split(Pattern)} & {@link #split(String)} that uses the {@code splitter} function
+     * to split this puzzle input into a list of strings and then converts these strings into new puzzle inputs
+     * with the same delimiter as this puzzle input
+     *
+     * @param splitter the function that determines where the puzzle input should be split
+     * @return list of new puzzle inputs
+     */
+    private List<PuzzleInput> split(Function<String, String[]> splitter) {
+        final String[] split = splitter.apply(toString());
+        return Arrays.stream(split).map(part ->
+                PuzzleInput.of(part).withDelimiter(delimiter)
+        ).collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -346,7 +347,11 @@ public class PuzzleInput implements Iterable<String> {
      */
     @Override
     public String toString() {
-        return lines().collect(Collectors.joining(delimiter));
+        return switch (inputs.size()) {
+            case 0 -> "";
+            case 1 -> inputs.get(0);
+            default -> lines().collect(Collectors.joining(delimiter));
+        };
     }
 
     /**
