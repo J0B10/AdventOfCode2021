@@ -1,6 +1,5 @@
 #!/bin/bash
-AOC_SESSION="${1}"
-day=${2:-$(date +"%-d")}
+day=${1:-$(date +"%-d")}
 day2D=$(printf "%02d" "${day}")
 
 # Make new file if it doesn't exist.
@@ -63,6 +62,8 @@ public class Day${day2D}${1}_Test {
 "
     mkFile "${dir}" "${file}" "${content}"
 }
+
+echo "${AOC_SESSION}"
 
 # Download puzzle input file
 function mkInputFile() {
