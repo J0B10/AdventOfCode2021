@@ -74,8 +74,13 @@ function mkInputFile() {
       echo "File already exists: ${file}"
     else
       mkdir -p "${dir}"
-      wget --header="Cookie: session=${AOC_SESSION}" -O "${file}" "${url}"
-      echo "Downloaded: ${file}"
+      if wget --header="Cookie: session=${AOC_SESSION}" -O "${file}" "${url}"; then
+        echo "Downloaded: ${file}"
+        return 0
+      else
+        echo "Download failed"
+        return 1
+      fi
     fi
 }
 
@@ -83,4 +88,6 @@ mkTaskFile "A"
 mkTestFile "A"
 mkTaskFile "B"
 mkTestFile "B"
-mkInputFile
+if mkInputFile; then
+  echo "Created template. Head over to https://adventofcode.com/2020/day/${day} for the puzzle!"
+fi
