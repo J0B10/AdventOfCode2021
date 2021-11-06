@@ -19,9 +19,9 @@ function mkFile() {
 # Make a new task file
 # param $1 - A or B
 function mkTaskFile() {
-    dir="src/main/java/io/github/joblo2213/adventofcode/y2021/day${day2D}"
+    dir="src/main/java/io/github/joblo2213/adventofcode/y2020/day${day2D}"
     file="${dir}/Day${day2D}${1}.java"
-    content="package io.github.joblo2213.adventofcode.y2021.day${day2D};
+    content="package io.github.joblo2213.adventofcode.y2020.day${day2D};
 
 import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
 import io.github.joblo2213.adventofcode.y2021.helpers.Task;
@@ -41,9 +41,9 @@ public class Day${day2D}${1} extends Task {
 # param $1 - A or B
 # shellcheck disable=SC2089
 function mkTestFile() {
-    dir="src/test/java/io/github/joblo2213/adventofcode/y2021/day${day2D}"
+    dir="src/test/java/io/github/joblo2213/adventofcode/y2020/day${day2D}"
     file="${dir}/Day${day2D}${1}_Test.java"
-    content="package io.github.joblo2213.adventofcode.y2021.day${day2D};
+    content="package io.github.joblo2213.adventofcode.y2020.day${day2D};
 
 import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
 import org.junit.jupiter.api.Test;
@@ -67,9 +67,9 @@ echo "${AOC_SESSION}"
 
 # Download puzzle input file
 function mkInputFile() {
-    dir="src/main/resources/io/github/joblo2213/adventofcode/y2021/day${day2D}"
+    dir="src/main/resources/io/github/joblo2213/adventofcode/y2020/day${day2D}"
     file="${dir}/puzzle_input.txt"
-    url="https://adventofcode.com/2021/day/${day}/input"
+    url="https://adventofcode.com/2020/day/${day}/input"
     if [ -f "${file}" ]; then
       echo "File already exists: ${file}"
     else
