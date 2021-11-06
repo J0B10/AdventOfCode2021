@@ -21,19 +21,7 @@ function mkFile() {
 function mkTaskFile() {
     dir="src/main/java/io/github/joblo2213/adventofcode/y2020/day${day2D}"
     file="${dir}/Day${day2D}${1}.java"
-    content="package io.github.joblo2213.adventofcode.y2020.day${day2D};
-
-import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
-import io.github.joblo2213.adventofcode.y2021.helpers.Task;
-
-public class Day${day2D}${1} extends Task {
-    @Override
-    public long run(PuzzleInput input) throws Exception {
-        //TODO Implement
-        return -1;
-    }
-}
-"
+    content=$(day2D=${day2D} ch=${1} envsubst < "templates/Task.java")
     mkFile "${dir}" "${file}" "${content}"
 }
 
@@ -43,23 +31,7 @@ public class Day${day2D}${1} extends Task {
 function mkTestFile() {
     dir="src/test/java/io/github/joblo2213/adventofcode/y2020/day${day2D}"
     file="${dir}/Day${day2D}${1}_Test.java"
-    content="package io.github.joblo2213.adventofcode.y2020.day${day2D};
-
-import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public class Day${day2D}${1}_Test {
-
-    @Test
-    @DisabledIfEnvironmentVariable(named = \"CI\", matches = \"true\", disabledReason = \"Disabled on GH Actions\")
-    public void task() throws Exception {
-        new Day${day2D}${1}().run();
-    }
-}
-"
+    content=$(day2D=${day2D} ch=${1} envsubst < "templates/Test.java")
     mkFile "${dir}" "${file}" "${content}"
 }
 
