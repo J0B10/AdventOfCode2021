@@ -35,8 +35,8 @@ public abstract class Task {
                 out.printf("* **%s**: `%s`  \n", label, result);
             } catch (IOException ignored) {
             }
-            System.out.printf("%4s%9s: %s%n", "⭐", label, result);
         }
+        System.out.printf("%4s%9s: %s%n", "⭐", label, result);
     }
 
     /**
