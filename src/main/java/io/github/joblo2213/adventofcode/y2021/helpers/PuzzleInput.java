@@ -216,8 +216,8 @@ public class PuzzleInput implements Iterable<String> {
         int start = 0, end;
         //find next occurrence of new delimiter
         while (start < raw.length() && (end = raw.indexOf(delimiter, start)) != -1) {
-            //add content up to delimiter to buffer if not empty
-            if (end > start) inputs.add(raw.substring(start, end));
+            //add content up to delimiter to buffer
+            inputs.add(raw.substring(start, end));
             //continue after delimiter
             start = end + delimiter.length();
         }
