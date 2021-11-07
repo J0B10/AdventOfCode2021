@@ -102,6 +102,9 @@ public class PuzzleInput implements Iterable<String> {
 
     /**
      * Create a new puzzle input from the given arguments as lines
+     * <p>
+     * The string arguments passed will be treated as one line each.
+     * They will <b>not</b> be split up at {@code \n}.
      *
      * @param in Any number of lines which will make up the new puzzle input
      * @return the created puzzle input
@@ -112,6 +115,8 @@ public class PuzzleInput implements Iterable<String> {
 
     /**
      * Creates a new puzzle input from the given arguments with the given delimiter.
+     * <p>
+     * They will <b>not</b> be split up further at occurrences of the delimiter.
      *
      * @param delimiter a character (or a sequence of characters if desired)
      *                  which should be added between the inputs if joined to a string
@@ -120,7 +125,28 @@ public class PuzzleInput implements Iterable<String> {
      */
     public static PuzzleInput withDelimiter(String delimiter, String... in) {
         return new PuzzleInput(List.of(in), delimiter);
+    }
 
+    /**
+     * Splits a multiline string into lines and constructs a new puzzle input from it
+     *
+     * @param in multiline input string that will be the new puzzle input
+     * @return the created puzzle input
+     */
+    public static PuzzleInput ofMulti(String in) {
+        return ofMulti(in, "\n");
+    }
+
+    /**
+     * Splits an input string at a given delimiter to create a new puzzle input
+     *
+     * @param in        input string that will be the new puzzle input
+     * @param delimiter character (or a sequence of characters if desired)
+     *                  at which the input string should be split
+     * @return the created puzzle input
+     */
+    public static PuzzleInput ofMulti(String in, String delimiter) {
+        return PuzzleInput.of(in).withDelimiter(delimiter);
     }
 
     /**
@@ -190,8 +216,8 @@ public class PuzzleInput implements Iterable<String> {
         int start = 0, end;
         //find next occurrence of new delimiter
         while (start < raw.length() && (end = raw.indexOf(delimiter, start)) != -1) {
-            //add content up to delimiter to buffer if not empty
-            if (end > start) inputs.add(raw.substring(start, end));
+            //add content up to delimiter to buffer
+            inputs.add(raw.substring(start, end));
             //continue after delimiter
             start = end + delimiter.length();
         }
