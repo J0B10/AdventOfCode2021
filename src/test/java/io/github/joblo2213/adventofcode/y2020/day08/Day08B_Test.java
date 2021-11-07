@@ -9,17 +9,17 @@ public class Day08B_Test {
 
     @Test
     public void test1() throws Exception {
-        assertEquals(8, new Day08B().run(PuzzleInput.of(
-                "nop +0",
-                "acc +1",
-                "jmp +4",
-                "acc +3",
-                "jmp -3",
-                "acc -99",
-                "acc +1",
-                "jmp -4",
-                "acc +6"
-        )));
+        assertEquals(8, new Day08B().run(PuzzleInput.ofMulti("""
+                nop +0
+                acc +1
+                jmp +4
+                acc +3
+                jmp -3
+                acc -99
+                acc +1
+                jmp -4
+                acc +6
+                """)));
     }
 
 

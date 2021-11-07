@@ -35,23 +35,23 @@ public class Day06B_Test {
 
     @Test
     public void test6() throws Exception {
-        assertEquals(6, new Day06B().run(PuzzleInput.of(
-                "abc",
-                "",
-                "a",
-                "b",
-                "c",
-                "",
-                "ab",
-                "ac",
-                "",
-                "a",
-                "a",
-                "a",
-                "a",
-                "",
-                "b"
-        )));
+        assertEquals(6, new Day06B().run(PuzzleInput.ofMulti("""
+                abc
+                                
+                a
+                b
+                c
+                                
+                ab
+                ac
+                                
+                a
+                a
+                a
+                a
+                                
+                b
+                """)));
     }
 
     @Test
