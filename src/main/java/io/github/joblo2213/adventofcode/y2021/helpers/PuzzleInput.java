@@ -204,6 +204,8 @@ public class PuzzleInput implements Iterable<String> {
      * Creates a new puzzle input that is split at a different delimiter.
      * <p>
      * This puzzle input remains untouched.
+     * <p>
+     * If an empty delimiter is used the input is split after every character.
      *
      * @param delimiter a character (or a sequence of characters if desired)
      *                  which should be used to split up the contents of the
@@ -211,6 +213,10 @@ public class PuzzleInput implements Iterable<String> {
      * @return a new puzzle input with lines split at the given delimiter
      */
     public PuzzleInput withDelimiter(String delimiter) {
+        if (delimiter.isEmpty()) {
+            //empty inputs will be split after every character
+            return toString().chars().mapToObj(Character::toString).collect(collect(""));
+        }
         final List<String> inputs = new LinkedList<>();
         final String raw = toString();
         int start = 0, end;
