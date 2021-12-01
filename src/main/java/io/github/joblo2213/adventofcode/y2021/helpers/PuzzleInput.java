@@ -51,7 +51,7 @@ public class PuzzleInput implements Iterable<String> {
         this.delimiter = delimiter;
         //remove possibly empty line at end of file
         final int last = this.inputs.size() - 1;
-        if (this.inputs.get(last).isBlank()) this.inputs.remove(last);
+        if (!this.inputs.isEmpty() && this.inputs.get(last).isBlank()) this.inputs.remove(last);
     }
 
 
