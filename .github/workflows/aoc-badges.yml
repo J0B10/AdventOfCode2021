@@ -10,7 +10,7 @@ jobs:
   build:
     name: ⭐ Update badges 📅
     runs-on: ubuntu-latest
-    if: startsWith(github.repository, 'joblo2213') # don't run in forks
+    if: startsWith(github.repository, 'J0B10') # don't run in forks
     steps:
       - uses: actions/checkout@v2
       - uses: joblo2213/aoc-badges-action@v3
