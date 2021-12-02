@@ -45,6 +45,7 @@ public class PuzzleInput implements Iterable<String> {
 
     private final List<String> inputs;
     private final String delimiter;
+    private boolean parallelStreams = false;
 
     private PuzzleInput(Collection<String> inputs, String delimiter) {
         this.inputs = new ArrayList<>(inputs);
@@ -253,10 +254,50 @@ public class PuzzleInput implements Iterable<String> {
     }
 
     /**
+     * Enable parallelization for all stream operations on this puzzle input.
+     * <p>
+     * This may actually be slower than a sequential stream for many implementations, due to overhead & synchronization.
+     * By default, all stream operations will be sequential.
+     * To disable parallelization for this input use {@link #sequential()}.
+     * <p>
+     * See {@link Stream#parallel()}.
+     *
+     * @return this puzzle input for further method calls
+     */
+    public PuzzleInput parallel() {
+        parallelStreams = true;
+        return this;
+    }
+
+    /**
+     * Disable parallelization for all stream operations on this puzzle input.
+     * <p>
+     * This is the default behaviour.
+     * To enable parallelization for this input use {@link #parallel()}.
+     * <p>
+     * See {@link Stream#parallel()}.
+     *
+     * @return this puzzle input for further method call
+     */
+    public PuzzleInput sequential() {
+        parallelStreams = false;
+        return this;
+    }
+
+    /**
+     * Check if streams constructed from this puzzle input will be parallel.
+     *
+     * @return state of the parallel streams flag
+     */
+    public boolean isParallel() {
+        return parallelStreams;
+    }
+
+    /**
      * @return the lines of the input file as stream.
      */
     public Stream<String> lines() {
-        return getLines().stream();
+        return parallelStreams ? getLines().parallelStream() : getLines().stream();
     }
 
     /**
@@ -313,7 +354,7 @@ public class PuzzleInput implements Iterable<String> {
      * See {@link Stream#map(Function)}
      */
     public <R> Stream<R> map(Function<String, ? extends R> mapper) {
-        return getLines().stream().map(mapper);
+        return lines().map(mapper);
     }
 
     /**
@@ -382,7 +423,7 @@ public class PuzzleInput implements Iterable<String> {
         return switch (inputs.size()) {
             case 0 -> "";
             case 1 -> inputs.get(0);
-            default -> lines().collect(Collectors.joining(delimiter));
+            default -> String.join(delimiter, getLines());
         };
     }
 
