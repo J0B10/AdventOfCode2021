@@ -22,7 +22,6 @@ public class Day02B_Test {
     }
 
     @Test
-    @DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "Disabled on GH Actions")
     public void task() throws Exception {
         new Day02B().run();
     }
