@@ -47,7 +47,9 @@ public class BingoBoard {
         int horizontal = countMarked(1, 0) + countMarked(-1, 0) - 1;
         if (horizontal == size) return true;
         int vertical = countMarked(0, 1) + countMarked(0, -1) - 1;
-        /* Diagonal Bingo's don't exist
+        /* 
+        https://www.reddit.com/r/adventofcode/comments/r8ixmk/do_you_or_your_loved_ones_suffer_from_counting/
+        Yes, I do.
 
         if (vertical == size) return true;
         int diagonalL = countMarked(-1, -1) + countMarked(1, 1) - 1;
