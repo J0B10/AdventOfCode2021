@@ -12,6 +12,7 @@ function mkFile() {
     else
       mkdir -p "${1}"
       echo "${3}" > "${2}"
+      git add "${2}"
       echo "Generated: ${2}"
     fi
 }
@@ -47,6 +48,7 @@ function mkInputFile() {
     else
       mkdir -p "${dir}"
       if wget --header="Cookie: session=${AOC_SESSION}" -O "${file}" "${url}"; then
+        git add "${file}"
         echo "Downloaded: ${file}"
         return 0
       else
@@ -56,6 +58,7 @@ function mkInputFile() {
     fi
 }
 
+git pull
 mkTaskFile "A"
 mkTestFile "A"
 mkTaskFile "B"
