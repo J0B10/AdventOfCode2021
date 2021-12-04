@@ -5,16 +5,13 @@ import io.github.joblo2213.adventofcode.y2021.helpers.Task;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static io.github.joblo2213.adventofcode.y2021.helpers.TODO.*;
-
-public class Day04B extends Task{
+public class Day04B extends Task {
     @Override
-    public long run(PuzzleInput input) throws Exception{
+    public long run(PuzzleInput input) throws Exception {
         List<PuzzleInput> inputs = input.split(Pattern.compile("\\n\\s*\\n", Pattern.MULTILINE));
         int[] nums = inputs.remove(0).withDelimiter(",").ints().toArray();
         Set<BingoBoard> boards = inputs.stream().map(BingoBoard::parse).collect(Collectors.toSet());

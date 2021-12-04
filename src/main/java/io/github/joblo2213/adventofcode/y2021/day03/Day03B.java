@@ -6,10 +6,7 @@ import io.github.joblo2213.adventofcode.y2021.helpers.Task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static io.github.joblo2213.adventofcode.y2021.helpers.TODO.TODO;
 
 public class Day03B extends Task {
 

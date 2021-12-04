@@ -1,11 +1,9 @@
 package io.github.joblo2213.adventofcode.y2021.day04;
 
 import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day04B_Test {
 
@@ -33,6 +31,7 @@ public class Day04B_Test {
                  2  0 12  3  7
                 """)));
     }
+
     @Test
     public void task() throws Exception {
         new Day04B().run();

@@ -1,9 +1,7 @@
 package io.github.joblo2213.adventofcode.y2021.day04;
 
 import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

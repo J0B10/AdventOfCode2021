@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import static io.github.joblo2213.adventofcode.y2021.helpers.TODO.*;
-
 public class Day04A extends Task{
     @Override
     public long run(PuzzleInput input) throws Exception {
