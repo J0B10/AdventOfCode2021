@@ -3,7 +3,9 @@ package io.github.joblo2213.adventofcode.y2021.day05;
 import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import java.util.Set;
+
+import static io.github.joblo2213.adventofcode.y2021.helpers.CustomAssertions.assertContainsOnly;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day05B_Test {
@@ -26,16 +28,16 @@ public class Day05B_Test {
 
     @Test
     public void test2() {
-        assertArrayEquals(new Pos[]{
+        assertContainsOnly(Set.of(
                 new Pos(1, 1),
                 new Pos(2, 2),
                 new Pos(3, 3)
-        }, Line.parse("1,1 -> 3,3").positions().toArray(Pos[]::new));
-        assertArrayEquals(new Pos[]{
+        ), Line.parse("1,1 -> 3,3").positions().toList());
+        assertContainsOnly(Set.of(
                 new Pos(9, 7),
                 new Pos(8, 8),
                 new Pos(7, 9)
-        }, Line.parse("9,7 -> 7,9").positions().toArray(Pos[]::new));
+        ), Line.parse("9,7 -> 7,9").positions().toList());
     }
 
     @Test
