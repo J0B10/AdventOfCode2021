@@ -2,7 +2,7 @@
 [![About](https://img.shields.io/badge/Advent%20of%20Code%20🎄-2021-brightgreen)](https://adventofcode.com/2021/about)
 [![Language](https://img.shields.io/badge/Language-java-red)](https://www.java.com/)
 [![Days completed](https://img.shields.io/badge/day%20📅-5-blue)](https://adventofcode.com/2021)
-[![Stars](https://img.shields.io/badge/stars%20⭐-8-yellow)](https://adventofcode.com/2021/stats)
+[![Stars](https://img.shields.io/badge/stars%20⭐-10-yellow)](https://adventofcode.com/2021/stats)
 
 
 Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that can be solved in any programming language you like. People use them as a speed contest, interview prep, company training, university coursework, practice problems, or to challenge each other.
