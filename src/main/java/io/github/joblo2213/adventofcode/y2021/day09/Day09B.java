@@ -38,7 +38,7 @@ public class Day09B extends Task {
                     && biggest.getLast().overlap(b)) {
                 continue;
             }
-            biggest.addFirst(b);
+            biggest.addLast(b);
             i++;
         }
         return biggest.stream().mapToLong(Basin::getSize).reduce(1L, (a, b) -> a * b);
