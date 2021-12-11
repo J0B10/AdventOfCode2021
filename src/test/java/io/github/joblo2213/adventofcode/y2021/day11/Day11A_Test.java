@@ -2,7 +2,6 @@ package io.github.joblo2213.adventofcode.y2021.day11;
 
 import io.github.joblo2213.adventofcode.y2021.helpers.PuzzleInput;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +26,6 @@ public class Day11A_Test {
     }
 
     @Test
-    @DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "Disabled on GH Actions")
     public void task() throws Exception {
         new Day11A().run();
     }
