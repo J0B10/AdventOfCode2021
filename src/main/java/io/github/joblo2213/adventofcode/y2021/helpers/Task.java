@@ -40,6 +40,30 @@ public abstract class Task {
     }
 
     /**
+     * Utility method that prints a tasks result to console and optionally adds it to a markdown styled results file.
+     * The file must be set as RESULTS_MD_FILE environment variable.
+     *
+     * @param label  label assigned to the result, usually the tasks class name
+     * @param result a multiline result string
+     */
+    protected static void logMultilineResult(String label, String result) {
+        if (RESULTS_MD_FILE != null) {
+            try (PrintWriter out = new PrintWriter(new FileWriter(RESULTS_MD_FILE, StandardCharsets.UTF_8, true))) {
+                out.printf("* **%s**:  \n", label);
+                out.print("  ```\n");
+                result.lines().map(l -> "  " + l + "\n").forEachOrdered(out::print);
+                out.print("  ```\n");
+
+            } catch (IOException ignored) {
+            }
+        }
+        System.out.printf("%4s%9s:%n", "⭐", label);
+        String space = "          ";
+        result.lines().map(l -> space + l).forEachOrdered(System.out::println);
+        System.out.println();
+    }
+
+    /**
      * Tries finding the puzzle input file for the current task and running it.
      * <p>
      * See {@link PuzzleInput#read(Class)}
